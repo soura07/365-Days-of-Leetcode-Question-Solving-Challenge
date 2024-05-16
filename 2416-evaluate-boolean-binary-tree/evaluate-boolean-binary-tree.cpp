@@ -12,9 +12,10 @@
 class Solution {
 public:
     bool evaluateTree(TreeNode* root) {
-        if(root->left == NULL && root->right == NULL){
+        if(!root->right && !root->left){
             return root->val;
         }
+
         int a = evaluateTree(root->left);
         int b = evaluateTree(root->right);
 
@@ -22,5 +23,6 @@ public:
             return a | b;
         }
         return a & b;
+
     }
 };
