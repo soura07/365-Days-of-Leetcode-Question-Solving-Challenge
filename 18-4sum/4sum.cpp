@@ -1,5 +1,6 @@
 class Solution {
 public:
+    typedef long long ll;
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
         vector<vector<int>> ans;
         if(nums.empty()){
@@ -10,7 +11,7 @@ public:
 
         for(int i=0; i<n;i++){
             for(int j= i+1; j<n;j++){
-                long long target_2 = (long long)target - nums[j] - nums[i];
+                ll target_2 = (ll)target - nums[j] - nums[i];
                 int front = j + 1;
                 int back = n - 1;
 
