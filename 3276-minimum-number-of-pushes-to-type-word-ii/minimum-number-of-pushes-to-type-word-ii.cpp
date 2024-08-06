@@ -1,19 +1,25 @@
 class Solution {
 public:
     int minimumPushes(string word) {
-        vector<int> count(26, 0);
-        for (char x : word) {
-            int idx = x - 'a';
-            count[idx] += 1;
+        unordered_map<char, int> um;
+        for (char c : word) {
+            um[c]++;
         }
 
-        sort(count.begin(), count.end(), greater<int>());
-        
-        int ans = 0;
-        ans += accumulate(count.begin(), count.begin() + 8, 0) * 1;
-        ans += accumulate(count.begin() + 8, count.begin() + 16, 0) * 2;
-        ans += accumulate(count.begin() + 16, count.begin() + 24, 0) * 3;
-        ans += accumulate(count.begin() + 24, count.end(), 0) * 4;
+        vector<int> count;
+        for (auto x : um) {
+            count.push_back(x.second);
+        }
+
+        sort(count.rbegin(), count.rend());
+
+        int ans = 0, row = 1;
+        for (int i = 0; i < count.size(); i++) {
+            if (i > 7 && i % 8 == 0) {
+                row++;
+            }
+            ans += row * count[i];
+        }
 
         return ans;
     }
