@@ -1,6 +1,6 @@
 class Solution {
 public:
-    // Function to compute the Longest Prefix-Suffix (LPS) array
+  
     vector<int> LPS(string pat) {
         int n = pat.size();
         vector<int> lps(n, 0);
