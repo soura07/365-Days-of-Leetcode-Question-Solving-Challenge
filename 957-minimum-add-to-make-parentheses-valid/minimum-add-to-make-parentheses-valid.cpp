@@ -13,6 +13,6 @@ public:
                 close++;
             }
         }
-        return close + open;
+        return open + close;
     }
 };
