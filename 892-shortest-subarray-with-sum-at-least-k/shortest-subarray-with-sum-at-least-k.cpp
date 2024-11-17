@@ -12,10 +12,10 @@ public:
                 int a=i-1;
                 while(a>=j&&nums[i]<0){
                     if(nums[i]+nums[a]<0){
-                        nums[i]+=nums[a];//adding negatives back
+                        nums[i]+=nums[a];
                         nums[a]=0;
                     }else{
-                        nums[a]+=nums[i];//last one
+                        nums[a]+=nums[i];
                         nums[i]=0;
                     }
                     a--;
