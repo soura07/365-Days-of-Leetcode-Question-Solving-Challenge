@@ -1,43 +1,49 @@
-
 class Solution {
 public:
+    int dr[4]={1,-1,0,0};
+    int dc[4]={0,0,1,-1};
+    typedef pair<int,int> pii;
     int minimumObstacles(vector<vector<int>>& grid) {
-        int n_rows = grid.size();
-        int n_cols = grid[0].size();
-        
-        vector<pair<int, int>> diffs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-        
-        deque<pair<int, int>> in_progress;
-        
-        vector<vector<int>> distance(n_rows, vector<int>(n_cols, INT_MAX));
-        
-        in_progress.push_front({0, 0});
-        distance[0][0] = 0;
+      int m=grid.size(),n=grid[0].size();
 
-        while (!in_progress.empty()) {
-            auto [i, j] = in_progress.front();
-            in_progress.pop_front();
+      vector<vector<int>> dist(m,vector<int>(n,INT_MAX));
 
-            for (const auto& [di, dj] : diffs) {
-                int new_i = i + di;
-                int new_j = j + dj;
+      dist[0][0]=0;
 
-                if (new_i >= 0 && new_i < n_rows && new_j >= 0 && new_j < n_cols) {
-                    int new_distance = distance[i][j] + grid[new_i][new_j];
+      deque <pii> dq;
 
-                    if (new_distance < distance[new_i][new_j]) {
-                        distance[new_i][new_j] = new_distance;
+      dq.push_back({0,0});
 
-                        if (grid[new_i][new_j] == 0) {
-                            in_progress.push_front({new_i, new_j});
-                        } else {
-                            in_progress.push_back({new_i, new_j});
-                        }
-                    }
-                }
+      while(!dq.empty()){
+        int r=dq.front().first;
+        int c=dq.front().second;
+
+        dq.pop_front();
+
+
+        for(int i=0;i<4;i++){
+            int nr=r+dr[i],nc=c+dc[i];
+
+            if(nr>=0 && nr<m && nc<n && nc>=0 &&  dist[nr][nc]>dist[r][c]+grid[nr][nc]){
+                   dist[nr][nc]=dist[r][c]+grid[nr][nc];
+
+                   if(grid[nr][nc]){
+                    dq.push_back({nr,nc});
+
+                   }
+
+                   else 
+                   dq.push_front({nr,nc});
+
+
             }
         }
+      }
 
-        return distance[n_rows - 1][n_cols - 1];
+
+      return dist[m-1][n-1];
+
+
+
     }
 };
